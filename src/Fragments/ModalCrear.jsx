@@ -29,7 +29,7 @@ export default function ModalCrear({ isOpen, onOpenChange, libro}) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader>Editar Libro</ModalHeader>
+                            <ModalHeader>Añadir Libro</ModalHeader>
                             <ModalBody>
                                 <Form onSubmit={(e) =>{
                                     e.preventDefault();

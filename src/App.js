@@ -1,40 +1,49 @@
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './CSS/App.css';
 import api from './Service/api';
 import ModalEditar from './Fragments/ModalEditar';
 import ModalCrear from './Fragments/ModalCrear';
+import GestosPermisos from './Components/GestorPermisos';
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button, useDisclosure } from "@heroui/react";
 
 function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LibrosView />} />
+      <Route path="/gestor/permisos" element={<GestosPermisos />} />
+    </Routes>
+  );
+}
 
+function LibrosView() {
   const [libros, setLibros] = useState([]);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen: isOpenCreate, onOpen: onOpenCreate, onOpenChange: onOpenChangeCreate } = useDisclosure();
   const [libroSeleccionado, setLibroSeleccionado] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     api.get('/libros').then((res) => {
       setLibros(res.data)
     }).catch((err) => {
       console.log("Error a imprimir los libros", err)
     })
-
   }, [])
 
-  function borrarRegistro({id}){
-    console.log(id)
-    api.delete(`/borrar/${id}`).then((res)=>{
-        alert(res.data)
-        window.location.reload();
-    }).catch((err)=>{
+  function borrarRegistro({ id }) {
+    api.delete(`/borrar/${id}`).then((res) => {
+      alert(res.data)
+      window.location.reload();
+    }).catch((err) => {
       console.log('Hubo un problema al elimir el registro', err)
     })
   }
 
-
   return (
     <div>
+      <Button className='m-5' onPress={onOpenCreate}>Añadir Libro</Button>
+      <ModalCrear isOpen={isOpenCreate} onOpenChange={onOpenChangeCreate} />
       <Table aria-label="Lista de libros" className='m-5'>
         <TableHeader>
           <TableColumn>Titulo</TableColumn>
@@ -52,32 +61,18 @@ function App() {
               <TableCell>{item.genero?.genero}</TableCell>
               <TableCell>{item.disponible?.disponible}</TableCell>
               <TableCell>
-                <Button aria-label={`Editar ${item.id}`} onPress={() =>{setLibroSeleccionado(item); onOpen();}} >Editar</Button>
+                <Button onPress={() => { setLibroSeleccionado(item); onOpen(); }} >Editar</Button>
               </TableCell>
               <TableCell>
-                <Button aria-label={`Eliminar ${item.id}`} onPress={()=> borrarRegistro({id: item.id})}>Eliminar</Button>
+                <Button onPress={() => borrarRegistro({ id: item.id })}>Eliminar</Button>
               </TableCell>
             </TableRow>
           ))}
-
         </TableBody>
       </Table>
 
-
-      <div>
-        <>
-          <ModalEditar isOpen={isOpen} onOpenChange={onOpenChange} libro={libroSeleccionado}/>
-        </>
-      </div>
-        
-        <Button className='m-5' onPress={onOpenCreate}>Añadir Libro</Button>
-
-        <div>
-        <>
-          <ModalCrear isOpen={isOpenCreate} onOpenChange={onOpenChangeCreate}/>
-        </>
-      </div>
-          
+      <ModalEditar isOpen={isOpen} onOpenChange={onOpenChange} libro={libroSeleccionado} />
+      <Button className='m-5' onPress={() => navigate('/gestor/permisos')}>Gestión de permisos</Button>
     </div>
   );
 }
