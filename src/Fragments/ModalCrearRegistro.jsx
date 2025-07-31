@@ -37,15 +37,15 @@ export default function CrearRegistro({ isOpen, onOpenChange }) {
                             >
                                 <div className="">
                                     <label>Usuario</label>
-                                    <Input name="usuario" type="text" />
+                                    <Input name="usuario" type="text" isRequired/>
                                 </div>
                                 <div className="">
                                     <label>Identificacion</label>
-                                    <Input name="identificacion" type="text" maxLength={10} pattern="\d*" />
+                                    <Input name="identificacion" type="text" maxLength={10} pattern="\d*" isRequired/>
                                 </div>
                                 <div className="">
                                     <label>Libro a prestar</label>
-                                    <Select name="libro_id" className="w-[200px]">
+                                    <Select name="libro_id" className="w-[200px]" isRequired>
                                         {libros.map((item) => (
                                             <SelectItem key={item.id} textValue={item.titulo}>{item.titulo}</SelectItem>
                                         ))}
@@ -53,11 +53,11 @@ export default function CrearRegistro({ isOpen, onOpenChange }) {
                                 </div>
                                 <div className="">
                                     <label>Fecha del prestamo</label>
-                                    <Input name="fecha_prestamo" type="date" />
+                                    <Input name="fecha_prestamo" type="date" isRequired/>
                                 </div>
                                 <div className="">
                                     <label>Fecha de devolucion</label>
-                                    <Input name="fecha_devolucion" type="date" />
+                                    <Input name="fecha_devolucion" type="date" isRequired/>
                                 </div>
                                 <div>
                                     <Button type="submit">Añadir Registro</Button>

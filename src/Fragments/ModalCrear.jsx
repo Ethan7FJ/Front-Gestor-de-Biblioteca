@@ -49,11 +49,11 @@ export default function ModalCrear({ isOpen, onOpenChange, libro}) {
                                     </div>
                                     <div>
                                         <label>Autor</label>
-                                        <Input name="autor" type="text" aria-label={`Eliminar ${libro?.autor}`} defaultValue={libro?.autor || ''}/>
+                                        <Input name="autor" type="text" aria-label={`Eliminar ${libro?.autor}`} defaultValue={libro?.autor || ''} isRequired/>
                                     </div>
                                     <div className="">
                                         <label>Genero</label>
-                                        <Select className="w-[200px]" name="genero_id" defaultSelectedKeys={[libro?.genero_id?.toString()]}>                                            
+                                        <Select className="w-[200px]" name="genero_id" defaultSelectedKeys={[libro?.genero_id?.toString()]} isRequired>                                            
                                             {generos.map((genero)=>(
                                                 <SelectItem key={genero.id} textValue={genero.genero}>{genero.genero}</SelectItem>
                                             ))}
@@ -61,7 +61,7 @@ export default function ModalCrear({ isOpen, onOpenChange, libro}) {
                                     </div>
                                     <div className="">
                                         <label>Diponibilidad</label>
-                                        <Select name="disponible_id" defaultSelectedKeys={[libro?.disponible_id?.toString()]}>
+                                        <Select name="disponible_id" defaultSelectedKeys={[libro?.disponible_id?.toString()]} isRequired>
                                             {disponibilidad.map((item)=>(
                                                 <SelectItem key={item.id} textValue={item.disponible}>{item.disponible}</SelectItem>
                                             ))}
