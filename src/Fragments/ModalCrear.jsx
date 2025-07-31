@@ -26,12 +26,12 @@ export default function ModalCrear({ isOpen, onOpenChange, libro}) {
     return (
         <div>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                <ModalContent>
+                <ModalContent className="text-center flex items-center">
                     {(onClose) => (
                         <>
                             <ModalHeader>Añadir Libro</ModalHeader>
                             <ModalBody>
-                                <Form onSubmit={(e) =>{
+                                <Form className="flex items-center m-6" onSubmit={(e) =>{
                                     e.preventDefault();
                                     let data = Object.fromEntries(new FormData(e.currentTarget));
 
@@ -53,7 +53,7 @@ export default function ModalCrear({ isOpen, onOpenChange, libro}) {
                                     </div>
                                     <div className="">
                                         <label>Genero</label>
-                                        <Select name="genero_id" defaultSelectedKeys={[libro?.genero_id?.toString()]}>                                            
+                                        <Select className="w-[200px]" name="genero_id" defaultSelectedKeys={[libro?.genero_id?.toString()]}>                                            
                                             {generos.map((genero)=>(
                                                 <SelectItem key={genero.id} textValue={genero.genero}>{genero.genero}</SelectItem>
                                             ))}

@@ -16,46 +16,48 @@ export default function CrearRegistro({ isOpen, onOpenChange }) {
 
     return (
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-            <ModalContent>
+            <ModalContent className="text-center flex items-center">
                 {(onClose) => (
                     <>
                         <ModalHeader>Añadir Registro</ModalHeader>
-                        <ModalBody>
+                        <ModalBody className="">
                             <Form
-                                onSubmit={(e)=>{
+                                className="flex items-center m-6"
+                                onSubmit={(e) => {
                                     e.preventDefault();
                                     let data = Object.fromEntries(new FormData(e.currentTarget));
 
-                                    api.post('/crear/registro',data).then((res)=>{
+                                    api.post('/crear/registro', data).then((res) => {
                                         alert(res.data);
                                         window.location.reload();
-                                    }).catch((err)=>{
-                                        console.log('hubo un error al crear el registro',err)
+                                    }).catch((err) => {
+                                        console.log('hubo un error al crear el registro', err)
                                     })
                                 }}
                             >
-                                <div>
+                                <div className="">
                                     <label>Usuario</label>
-                                    <Input name="usuario" type="text"/>
+                                    <Input name="usuario" type="text" />
                                 </div>
-                                <div>
+                                <div className="">
                                     <label>Identificacion</label>
-                                    <Input name="identificacion" type="text" maxLength={10} pattern="\d*"/>
+                                    <Input name="identificacion" type="text" maxLength={10} pattern="\d*" />
                                 </div>
-                                <div>
+                                <div className="">
                                     <label>Libro a prestar</label>
-                                    <Select name="libro_id">
-                                        {libros.map((item)=>(
+                                    <Select name="libro_id" className="w-[200px]">
+                                        {libros.map((item) => (
                                             <SelectItem key={item.id} textValue={item.titulo}>{item.titulo}</SelectItem>
                                         ))}
                                     </Select>
                                 </div>
-                                <div>
-                                    <label>Fecha del prestamo</label></div>
-                                    <Input name="fecha_prestamo" type="date"/>
-                                <div>
+                                <div className="">
+                                    <label>Fecha del prestamo</label>
+                                    <Input name="fecha_prestamo" type="date" />
+                                </div>
+                                <div className="">
                                     <label>Fecha de devolucion</label>
-                                    <Input name="fecha_devolucion" type="date"/>
+                                    <Input name="fecha_devolucion" type="date" />
                                 </div>
                                 <div>
                                     <Button type="submit">Añadir Registro</Button>

@@ -6,6 +6,7 @@ import ModalEditar from './Fragments/ModalEditar';
 import ModalCrear from './Fragments/ModalCrear';
 import GestosPermisos from './Components/GestorPermisos';
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button, useDisclosure } from "@heroui/react";
+import { PieChart } from '@mui/x-charts/PieChart';
 
 function App() {
   return (
@@ -40,10 +41,20 @@ function LibrosView() {
     })
   }
 
+  const conteoGeneros = libros.reduce((acc, curr) => {
+    acc[curr.genero?.genero] = (acc[curr.genero?.genero] || 0) + 1;
+    return acc;
+  }, {});
+
+
+  const dataGrafica = Object.entries(conteoGeneros).map(([label, value]) => ({
+    label,
+    value
+  }));
+
   return (
     <div>
-      <Button className='m-5' onPress={onOpenCreate}>Añadir Libro</Button>
-      <ModalCrear isOpen={isOpenCreate} onOpenChange={onOpenChangeCreate} />
+
       <Table aria-label="Lista de libros" className='m-5'>
         <TableHeader>
           <TableColumn>Titulo</TableColumn>
@@ -70,6 +81,19 @@ function LibrosView() {
           ))}
         </TableBody>
       </Table>
+
+      <PieChart
+        series={[
+          {
+            data: dataGrafica,
+          },
+        ]}
+        width={120}
+        height={120}
+      />
+
+      <Button className='m-5' onPress={onOpenCreate}>Añadir Libro</Button>
+      <ModalCrear isOpen={isOpenCreate} onOpenChange={onOpenChangeCreate} />
 
       <ModalEditar isOpen={isOpen} onOpenChange={onOpenChange} libro={libroSeleccionado} />
       <Button className='m-5' onPress={() => navigate('/gestor/permisos')}>Gestión de permisos</Button>

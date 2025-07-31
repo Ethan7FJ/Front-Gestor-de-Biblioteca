@@ -26,12 +26,12 @@ export default function ModalEditar({ isOpen, onOpenChange, libro}) {
     return (
         <div>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                <ModalContent>
+                <ModalContent className="text-center flex items-center">
                     {(onClose) => (
                         <>
                             <ModalHeader>Editar Libro</ModalHeader>
                             <ModalBody>
-                                <Form onSubmit={(e) =>{
+                                <Form className="flex items-center m-6" onSubmit={(e) =>{
                                     e.preventDefault();
                                     let data = Object.fromEntries(new FormData(e.currentTarget));
 
@@ -53,7 +53,7 @@ export default function ModalEditar({ isOpen, onOpenChange, libro}) {
                                     </div>
                                     <div className="">
                                         <label>Genero</label>
-                                        <Select name="genero_id" defaultSelectedKeys={[libro?.genero_id?.toString()]}>                                            
+                                        <Select className="w-[200px]" name="genero_id" defaultSelectedKeys={[libro?.genero_id?.toString()]}>                                            
                                             {generos.map((genero)=>(
                                                 <SelectItem key={genero.id} textValue={genero.genero}>{genero.genero}</SelectItem>
                                             ))}
@@ -61,7 +61,7 @@ export default function ModalEditar({ isOpen, onOpenChange, libro}) {
                                     </div>
                                     <div className="">
                                         <label>Diponibilidad</label>
-                                        <Select name="disponible_id" defaultSelectedKeys={[libro?.disponible_id?.toString()]}>
+                                        <Select className="w-[200px]" name="disponible_id" defaultSelectedKeys={[libro?.disponible_id?.toString()]}>
                                             {disponibilidad.map((item)=>(
                                                 <SelectItem key={item.id} textValue={item.disponible}>{item.disponible}</SelectItem>
                                             ))}
